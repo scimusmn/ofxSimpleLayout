@@ -49,7 +49,7 @@ namespace ofxSimpleLayout {
     void Layout::button(string name, int x, int y, string msg){
         
         this->registerImage(name);
-        this->addLayoutElement(name, TYPE_BTN, ofRectangle(x, y, getImage(name).getWidth(), getImage(name).getHeight()));
+        this->addLayoutElement(name, TYPE_IMG, ofRectangle(x, y, getImage(name).getWidth(), getImage(name).getHeight()));
         
         //Set button message
         this->currentView.back().msg = msg;
@@ -61,6 +61,17 @@ namespace ofxSimpleLayout {
         
         this->registerVideo(name);
         this->addLayoutElement(name, TYPE_VID, ofRectangle(x, y, getVideo(name).getWidth(), getVideo(name).getHeight()));
+        
+    }
+    
+    //----------
+    void Layout::videoButton(string name, int x, int y, string msg){
+        
+        this->registerVideo(name);
+        this->addLayoutElement(name, TYPE_VID, ofRectangle(x, y, getVideo(name).getWidth(), getVideo(name).getHeight()));
+        
+        //Set button message
+        this->currentView.back().msg = msg;
         
     }
     
@@ -116,9 +127,6 @@ namespace ofxSimpleLayout {
                 case TYPE_IMG:
                     getImage(le.name).draw(le.box.x, le.box.y);
                     break;
-                case TYPE_BTN:
-                    getImage(le.name).draw(le.box.x, le.box.y);
-                    break;
                 case TYPE_STATE:
                     getImage(le.name+"_"+le.state).draw(le.box.x, le.box.y);
                     break;
@@ -162,7 +170,7 @@ namespace ofxSimpleLayout {
         LayoutElement le;
         for (int i = 0; i<currentView.size(); i++) {
             le = currentView[i];
-            if (le.type == TYPE_BTN) {
+            if (!le.msg.empty()) {
                 if (le.box.inside(x, y) == true){
                     if (!le.msg.empty()) {
                         return le.msg;

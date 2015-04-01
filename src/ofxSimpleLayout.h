@@ -15,7 +15,6 @@ namespace ofxSimpleLayout {
     
     enum AssetType{
         TYPE_IMG,
-        TYPE_BTN,
         TYPE_STATE,
         TYPE_VID
     };
@@ -46,6 +45,7 @@ namespace ofxSimpleLayout {
         void button(string name, int x, int y);
         void button(string name, int x, int y, string msg);
         void video(string name, int x, int y);
+        void videoButton(string name, int x, int y, string msg);
         
         void setState(string name, string state);
         
