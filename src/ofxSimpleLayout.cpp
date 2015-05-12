@@ -205,7 +205,7 @@ namespace ofxSimpleLayout {
         this->images.insert(pair<string, ofImage>(name, ofImage()));
         this->images[name].loadImage(filepath);
                 
-        ofLogNotice("ofxSimpleLayout") << "Registered image: '" << filepath << "'" << endl;
+//        ofLogNotice("ofxSimpleLayout") << "Registered image: '" << filepath << "'" << endl;
         
         return true;
         
@@ -238,7 +238,7 @@ namespace ofxSimpleLayout {
         this->videos.insert(pair<string, ofVideoPlayer>(name, ofVideoPlayer()));
         this->videos[name].loadMovie(filepath);
         
-        ofLogNotice("ofxSimpleLayout") << "Registered video: '" << filepath << "'" << endl;
+//        ofLogNotice("ofxSimpleLayout") << "Registered video: '" << filepath << "'" << endl;
         
         return true;
     }
