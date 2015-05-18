@@ -37,6 +37,7 @@ namespace ofxSimpleLayout {
     public:
         void saveView(string name);
         void setView(string name);
+        string currentViewId;
         
         //Add elements
         void image(string name);

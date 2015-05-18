@@ -25,12 +25,13 @@ namespace ofxSimpleLayout {
         auto findView = this->views.find(name);
         if (findView != this->views.end()) {
             this->currentView = findView->second;
+            currentViewId = name;
         } else {
             ofLogError("ofxSimpleLayout") << "Requested view'" << name << "' not found";
         }
         
         this->toggleVideos(true);
-        
+
     }
     
     //----------
