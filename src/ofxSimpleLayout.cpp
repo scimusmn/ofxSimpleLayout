@@ -35,6 +35,18 @@ namespace ofxSimpleLayout {
     }
     
     //----------
+    bool Layout::viewExists(string name){
+
+        auto findView = this->views.find(name);
+        if (findView != this->views.end()) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    //----------
     void Layout::image(string name){ this->image(name,0,0); };
     void Layout::image(string name, int x, int y){
         
@@ -59,16 +71,26 @@ namespace ofxSimpleLayout {
     
     //----------
     void Layout::video(string name, int x, int y){
+        this->video(name, x, y, true);
+    }
+    
+    //----------
+    void Layout::video(string name, int x, int y, bool loop){
         
-        this->registerVideo(name);
+        this->registerVideo(name, loop);
         this->addLayoutElement(name, TYPE_VID, ofRectangle(x, y, getVideo(name).getWidth(), getVideo(name).getHeight()));
         
     }
     
     //----------
     void Layout::videoButton(string name, int x, int y, string msg){
+        this->videoButton(name, x, y, msg, true);
+    }
+    
+    //----------
+    void Layout::videoButton(string name, int x, int y, string msg, bool loop){
         
-        this->registerVideo(name);
+        this->registerVideo(name, loop);
         this->addLayoutElement(name, TYPE_VID, ofRectangle(x, y, getVideo(name).getWidth(), getVideo(name).getHeight()));
         
         //Set button message
@@ -144,16 +166,24 @@ namespace ofxSimpleLayout {
     }
     
     //----------
-    void Layout::setState(string name, string state) {
-
+    LayoutElement& Layout::getByName(string name) {
+        
         for (int i = 0; i<currentView.size(); i++) {
             
             if (currentView[i].name == name){
-                currentView[i].state = state;
-                return;
+                
+                return currentView[i];
+                
             }
-        
+            
         }
+        
+    }
+    
+    //----------
+    void Layout::setState(string name, string state) {
+
+        this->getByName(name).state = state;
         
     }
 
@@ -224,7 +254,7 @@ namespace ofxSimpleLayout {
     }
     
     //---------
-    bool Layout::registerVideo(string name) {
+    bool Layout::registerVideo(string name, bool loop) {
         
         bool hasVideo = this->videos.find(name) != this->videos.end();
         if (hasVideo == true) return true;
@@ -237,7 +267,11 @@ namespace ofxSimpleLayout {
         if (filepath == "") return false;
         
         this->videos.insert(pair<string, ofVideoPlayer>(name, ofVideoPlayer()));
+        this->videos[name].setPixelFormat(OF_PIXELS_RGBA); // Allow alpha channel
         this->videos[name].loadMovie(filepath);
+        
+        ofLogNotice("loop "+name, ofToString(loop));
+        if (!loop) this->videos[name].setLoopState(OF_LOOP_NONE);
         
 //        ofLogNotice("ofxSimpleLayout") << "Registered video: '" << filepath << "'" << endl;
         

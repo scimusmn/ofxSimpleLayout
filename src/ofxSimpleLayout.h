@@ -37,6 +37,7 @@ namespace ofxSimpleLayout {
     public:
         void saveView(string name);
         void setView(string name);
+        bool viewExists(string name);
         string currentViewId;
         
         //Add elements
@@ -46,10 +47,13 @@ namespace ofxSimpleLayout {
         void button(string name, int x, int y);
         void button(string name, int x, int y, string msg);
         void video(string name, int x, int y);
+        void video(string name, int x, int y, bool loop);
         void videoButton(string name, int x, int y, string msg);
+        void videoButton(string name, int x, int y, string msg, bool loop);
         
         void setState(string name, string state);
         
+        LayoutElement& getByName(string name);
         string getHovered(int x, int y);
         string getSelected(int x, int y);
 
@@ -71,7 +75,7 @@ namespace ofxSimpleLayout {
         
         void addLayoutElement(string name, AssetType type, ofRectangle box);
         bool registerImage(string name);
-        bool registerVideo(string name);
+        bool registerVideo(string name, bool loop);
         
         ofImage blankImage;
         ofVideoPlayer blankVideo;
