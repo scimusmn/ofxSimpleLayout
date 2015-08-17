@@ -270,7 +270,6 @@ namespace ofxSimpleLayout {
         this->videos[name].setPixelFormat(OF_PIXELS_RGBA); // Allow alpha channel
         this->videos[name].loadMovie(filepath);
         
-        ofLogNotice("loop "+name, ofToString(loop));
         if (!loop) this->videos[name].setLoopState(OF_LOOP_NONE);
         
 //        ofLogNotice("ofxSimpleLayout") << "Registered video: '" << filepath << "'" << endl;
